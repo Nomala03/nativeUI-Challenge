@@ -91,11 +91,11 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "700",
     marginLeft: 12,
     color: "#0f0f0f",
-    // letterSpacing: 1,
+    letterSpacing: 1,
   },
   iconText: {
     fontWeight: "600",
