@@ -1,5 +1,6 @@
 import { View, Text, Dimensions, StyleSheet, Image } from "react-native";
 import IconCircle from "@/components/IconCircle";
+import TimerDots from "@/components/TimerDots";
 
 const { width, height } = Dimensions.get("window");
 
@@ -65,7 +66,7 @@ export default function MainScreen() {
 
         {/* Pill Image & Timer */}
         <View style={styles.centerRow}>
-          <View style={styles.productWrap}>
+          
             <View style={styles.pillBottleShadow}>
               <Image
                 source={require("../assets/images/pills.png")}
@@ -73,6 +74,9 @@ export default function MainScreen() {
                 resizeMode="contain"
               />
             </View>
+          
+          <View style={{ marginBottom: 80 }}>
+            <TimerDots active={60} />
           </View>
         </View>
       </View>
@@ -164,22 +168,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 18,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
-  productWrap: { flex: 1, alignItems: 'center', justifyContent: 'center'},
+
   pillBottleShadow: {
     width: 200,
-height: 260,
-borderRadius: 18,
-alignItems: 'center',
-justifyContent: 'center',
-shadowColor: '#000',
-shadowOpacity: 0.2,
-shadowRadius: 30,
-elevation: 12,
+    height: 260,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+    elevation: 12,
   },
   pillImage: {
-    width: 180,
-    height: 220,
+    width: 200,
+    height: 380,
+    marginLeft: 60,
   },
 });
