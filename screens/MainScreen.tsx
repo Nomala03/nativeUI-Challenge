@@ -49,16 +49,32 @@ export default function MainScreen() {
         {/* Mode Selector*/}
         <View style={styles.modeRow}>
           <View style={styles.modeItem}>
-            <Image source={require("../assets/images/flower.png")} style={styles.flower} />
+            <Image
+              source={require("../assets/images/flower.png")}
+              style={styles.flower}
+            />
             <Text style={styles.modeText}>Relax</Text>
-  
-            <Image source={require("../assets/images/moon.png")} style={styles.moon} />
+
+            <Image
+              source={require("../assets/images/moon.png")}
+              style={styles.moon}
+            />
             <Text style={[styles.modeText, { opacity: 0.5 }]}>Sleep</Text>
           </View>
         </View>
 
         {/* Pill Image & Timer */}
-        
+        <View style={styles.centerRow}>
+          <View style={styles.productWrap}>
+            <View style={styles.pillBottleShadow}>
+              <Image
+                source={require("../assets/images/pills.png")}
+                style={styles.pillImage}
+                resizeMode="contain"
+              />
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -76,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 18,
     paddingHorizontal: 24,
-    // alignSelf: "center",
+    alignSelf: "center",
     borderRadius: 28,
   },
   topRow: {
@@ -121,7 +137,7 @@ const styles = StyleSheet.create({
   },
   modeItem: {
     flexDirection: "row",
-    alignItems: "center",   
+    alignItems: "center",
   },
   flower: {
     width: 25,
@@ -143,5 +159,27 @@ const styles = StyleSheet.create({
     padding: 4,
     opacity: 0.5,
     marginLeft: 18,
+  },
+  centerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 18,
+    justifyContent: 'space-between',
+  },
+  productWrap: { flex: 1, alignItems: 'center', justifyContent: 'center'},
+  pillBottleShadow: {
+    width: 200,
+height: 260,
+borderRadius: 18,
+alignItems: 'center',
+justifyContent: 'center',
+shadowColor: '#000',
+shadowOpacity: 0.2,
+shadowRadius: 30,
+elevation: 12,
+  },
+  pillImage: {
+    width: 180,
+    height: 220,
   },
 });
