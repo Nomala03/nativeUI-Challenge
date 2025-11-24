@@ -1,10 +1,22 @@
-import { View, Text, Dimensions, StyleSheet, Image } from "react-native";
+import React from "react";
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+
 import IconCircle from "@/components/IconCircle";
 import TimerDots from "@/components/TimerDots";
+import QuantitySelector from "@/components/QuantitySelector";
 
 const { width, height } = Dimensions.get("window");
 
 export default function MainScreen() {
+  const [qty, setQty] = React.useState(2);
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -18,7 +30,7 @@ export default function MainScreen() {
 
           <Image
             source={require("../assets/images/XefagIcon.png")}
-            style={{ width: 45, height: 45, marginLeft: 12 }}
+            style={{ width: 45, height: 45, marginLeft: 14 }}
           />
 
           <Text style={styles.title}>Xefag</Text>
@@ -35,7 +47,7 @@ export default function MainScreen() {
               <Image
                 source={require("../assets/images/user.png")}
                 style={styles.userImage}
-              />{" "}
+              />
             </IconCircle>
 
             <IconCircle>
@@ -47,7 +59,6 @@ export default function MainScreen() {
           </View>
         </View>
 
-        {/* Mode Selector*/}
         <View style={styles.modeRow}>
           <View style={styles.modeItem}>
             <Image
@@ -64,20 +75,38 @@ export default function MainScreen() {
           </View>
         </View>
 
-        {/* Pill Image & Timer */}
-        <View style={styles.centerRow}>
-          
-            <View style={styles.pillBottleShadow}>
-              <Image
-                source={require("../assets/images/pills.png")}
-                style={styles.pillImage}
-                resizeMode="contain"
-              />
+        {/* Mode Selector*/}
+
+        <View style={styles.timerColumn}>
+          {" "}
+          <TimerDots active={30} />
+        </View>
+
+        {/* Pill Image */}
+        <View style={styles.imageWrapper}>
+          <Image
+            source={require("../assets/images/pills.png")}
+            style={styles.pillImage}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Bottom White Card */}
+        <View style={styles.card}>
+          <Text style={styles.title2}>Relax 30{"\n"}Dissolvable Wafers</Text>
+
+          <Text style={styles.subtitle}>250 mg</Text>
+          <View style={styles.cost}>
+            {" "}
+            <Text style={styles.price}>$25.50</Text>
+            <View style={styles.quantityRow}>
+              <QuantitySelector value={qty} onChange={setQty} />
             </View>
-          
-          <View style={{ marginBottom: 80 }}>
-            <TimerDots active={60} />
           </View>
+
+          <TouchableOpacity style={styles.buyBtn}>
+            <Text style={styles.buyTxt}>Buy Now</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -86,23 +115,37 @@ export default function MainScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#BAD9EC",
+    padding: 20,
   },
+
   topBar: {
-    width: width * 0.95,
-    height: height * 0.68,
-    backgroundColor: "#f7B615",
-    marginTop: 20,
-    padding: 18,
-    paddingHorizontal: 24,
-    alignSelf: "center",
-    borderRadius: 28,
+    width: width * 0.9,
+    height: height * 0.9,
+    backgroundColor: "#F9C327",
+    borderRadius: 34,
+    position: "relative",
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+    paddingTop: 20,
+    marginTop: -6,
+
+    //tilt slightly to the right
+    transform: [{ rotate: "2.5deg" }],
+
+    // add shadow to lift it off background
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 6,
   },
+
   topRow: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 14,
   },
+
   less: {
     width: 35,
     height: 35,
@@ -110,6 +153,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 8,
   },
+
   title: {
     fontSize: 24,
     fontWeight: "700",
@@ -117,32 +161,28 @@ const styles = StyleSheet.create({
     color: "#0f0f0f",
     letterSpacing: 1,
   },
-  iconText: {
-    fontWeight: "600",
-  },
-  cart: {
-    fontSize: 16,
-  },
+
   userImage: {
     width: 40,
     height: 40,
     backgroundColor: "#DB8B00",
     borderRadius: 20,
-    padding: 10,
+    padding: 8,
   },
-  bin: {
-    width: 20,
-    height: 20,
-  },
+
+  bin: { width: 20, height: 20 },
+
   modeRow: {
     flexDirection: "row",
     alignItems: "center",
     marginTop: 24,
   },
+
   modeItem: {
     flexDirection: "row",
     alignItems: "center",
   },
+
   flower: {
     width: 25,
     height: 25,
@@ -150,12 +190,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#DB8B00",
     padding: 4,
   },
+
   modeText: {
     fontSize: 16,
     fontWeight: "600",
     marginLeft: 4,
     color: "#0f0f0f",
   },
+
   moon: {
     width: 25,
     height: 25,
@@ -164,27 +206,84 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     marginLeft: 18,
   },
-  centerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 18,
-    justifyContent: "space-between",
+
+  timerColumn: {
+    marginLeft: "auto",
+    marginTop: -40,
   },
 
-  pillBottleShadow: {
-    width: 200,
-    height: 260,
-    borderRadius: 18,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 30,
-    elevation: 12,
-  },
   pillImage: {
-    width: 200,
-    height: 380,
-    marginLeft: 60,
+    width: width * 0.7,
+    height: width * 0.95,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+
+  imageWrapper: {
+    alignItems: "center",
+    position: "absolute",
+    top: "12%", 
+    left: 0,
+    right: 0,
+  },
+
+  card: {
+    position: "absolute",
+    width: width * 0.9,
+    height: width * 0.7,
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    bottom: 0,
+    borderRadius: 35,
+    paddingHorizontal: width * 0.07,
+    paddingVertical: width * 0.08,
+  },
+
+  title2: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#000",
+    lineHeight: 35,
+  },
+
+  subtitle: {
+    marginTop: 8,
+    fontSize: 18,
+    color: "#666",
+  },
+
+  cost: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  price: {
+    marginTop: 20,
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  
+  quantityRow: {
+    marginTop: 25,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+
+  buyBtn: {
+    marginTop: 18,
+    backgroundColor: "#FFD02A",
+    padding: 14,
+    borderRadius: 20,
+    alignItems: "center",
+  },
+
+  buyTxt: {
+    fontSize: 18,
+    fontWeight: "600",
   },
 });
